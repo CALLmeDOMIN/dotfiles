@@ -1,0 +1,34 @@
+[core]
+    editor = code --wait
+[user]
+    name = Dominik Sieroń
+    email = 71605737+CALLmeDOMIN@users.noreply.github.com
+[alias]
+    alias = !git config --get-regexp '^alias\\.' | grep -v '^alias\\.alias\\b'
+    st = status
+    sw = switch
+    swtich = switch
+    sm = switch main
+    fo = fetch origin
+    conf = config --global --edit
+    cge = config --global --edit
+    co = commit
+    ch = checkout
+    chd = checkout .
+    cb = checkout -b
+    rh = reset HEAD
+    aa = add -A
+    cdf = clean -df
+    br = branch
+    bra = branch -a
+    pr = pull --rebase
+    amend = commit -a --amend --no-edit
+    coam = commit -a --amend --no-edit
+[credential "https://github.com"]
+	helper = 
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+[init]
+	defaultBranch = main
