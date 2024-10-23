@@ -24,9 +24,14 @@ if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
   eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/catppuccin_mocha.omp.json)"
 fi
 
+# go
+export PATH=$PATH:/usr/local/go/bin
+
 alias cl='clear'
 alias clera='clear'
 alias profile='vim ~/.zshrc'
 alias execp='exec zsh'
 alias ls='lsd -la'
 alias cat='bat'
+
+fortune
