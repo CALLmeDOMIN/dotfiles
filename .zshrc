@@ -27,11 +27,22 @@ fi
 # go
 export PATH=$PATH:/usr/local/go/bin
 
+# aliases
 alias cl='clear'
 alias clera='clear'
 alias profile='vim ~/.zshrc'
 alias execp='exec zsh'
 alias ls='lsd -la'
 alias cat='bat'
+
+# console ninja
+PATH=~/.console-ninja/.bin:$PATH
+
+# bun completions
+[ -s "/home/cmd/.bun/_bun" ] && source "/home/cmd/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
 
 fortune
