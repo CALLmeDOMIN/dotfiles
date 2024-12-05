@@ -34,6 +34,8 @@ alias profile='vim ~/.zshrc'
 alias execp='exec zsh'
 alias ls='lsd -la'
 alias cat='bat'
+alias exp='explorer.exe .'
+alias cls='cl && ls'
 
 # console ninja
 PATH=~/.console-ninja/.bin:$PATH
@@ -44,5 +46,7 @@ PATH=~/.console-ninja/.bin:$PATH
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+export PATH=$HOME/.local/bin:$PATH
 
 fortune
