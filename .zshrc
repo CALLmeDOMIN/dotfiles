@@ -18,11 +18,9 @@ unsetopt beep
 bindkey -v
 
 # End of lines configured by zsh-newuser-install
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-  eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/catppuccin_mocha.omp.json)"
-fi
+# oh-my-posh
+eval "$(oh-my-posh init zsh --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/catppuccin_mocha.omp.json')"
 
 # go
 export PATH=$PATH:/usr/local/go/bin
@@ -30,12 +28,14 @@ export PATH=$PATH:/usr/local/go/bin
 # aliases
 alias cl='clear'
 alias clera='clear'
-alias profile='vim ~/.zshrc'
-alias execp='exec zsh'
+alias zshrc='vim ~/.zshrc'
+alias srcp='source ~/.zshrc'
 alias ls='lsd -la'
 alias cat='bat'
 alias exp='explorer.exe .'
 alias cls='cl && ls'
+alias repos='cd ~/repos'
+alias cdr='cd ~'
 
 # console ninja
 PATH=~/.console-ninja/.bin:$PATH
@@ -47,6 +47,14 @@ PATH=~/.console-ninja/.bin:$PATH
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
+# fnm
+FNM_PATH="/home/cmdarch/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi
+
 export PATH=$HOME/.local/bin:$PATH
 
+neofetch
 fortune
