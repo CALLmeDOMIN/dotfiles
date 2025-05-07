@@ -19,16 +19,13 @@ bindkey -v
 
 # End of lines configured by zsh-newuser-install
 
-# oh-my-posh
-eval "$(oh-my-posh init zsh --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/catppuccin_mocha.omp.json')"
-
 # go
 export PATH=$PATH:/usr/local/go/bin
 
 # aliases
 alias cl='clear'
 alias clera='clear'
-alias zshrc='vim ~/.zshrc'
+alias zshrc='nvim ~/.zshrc'
 alias srcp='source ~/.zshrc'
 alias ls='lsd -la'
 alias cat='bat'
@@ -55,6 +52,9 @@ if [ -d "$FNM_PATH" ]; then
 fi
 
 export PATH=$HOME/.local/bin:$PATH
+
+# oh-my-posh
+eval "$(oh-my-posh init zsh --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/catppuccin_mocha.omp.json')"
 
 neofetch
 fortune
