@@ -33,6 +33,7 @@ alias exp='explorer.exe .'
 alias cls='cl && ls'
 alias repos='cd ~/repos'
 alias cdr='cd ~'
+alias vim='nvim'
 
 # console ninja
 PATH=~/.console-ninja/.bin:$PATH
