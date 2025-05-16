@@ -24,11 +24,7 @@
     pr = pull --rebase
     amend = commit -a --amend --no-edit
     coam = commit -a --amend --no-edit
-[credential "https://github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
-[credential "https://gist.github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
 [init]
 	defaultBranch = main
+[credential]
+	helper = osxkeychain

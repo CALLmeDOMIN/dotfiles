@@ -17,7 +17,12 @@ setopt notify
 unsetopt beep
 bindkey -v
 
-# End of lines configured by zsh-newuser-install
+if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
+  eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/catppuccin_mocha.omp.json)"
+fi
+
+# fnm
+eval "$(fnm env --use-on-cd)"
 
 # go
 export PATH=$PATH:/usr/local/go/bin
@@ -25,21 +30,20 @@ export PATH=$PATH:/usr/local/go/bin
 # aliases
 alias cl='clear'
 alias clera='clear'
-alias zshrc='nvim ~/.zshrc'
-alias srcp='source ~/.zshrc'
+alias profile='vim ~/.zshrc'
+alias srcp='exec zsh'
 alias ls='lsd -la'
 alias cat='bat'
 alias exp='explorer.exe .'
 alias cls='cl && ls'
 alias repos='cd ~/repos'
-alias cdr='cd ~'
 alias vim='nvim'
 
 # console ninja
 PATH=~/.console-ninja/.bin:$PATH
 
 # bun completions
-[ -s "/home/cmd/.bun/_bun" ] && source "/home/cmd/.bun/_bun"
+[ -s "/Users/cmdmac/.bun/_bun" ] && source "/Users/cmdmac/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
@@ -53,6 +57,14 @@ if [ -d "$FNM_PATH" ]; then
 fi
 
 export PATH=$HOME/.local/bin:$PATH
+
+# pnpm
+export PNPM_HOME="/Users/cmdmac/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
 
 # oh-my-posh
 eval "$(oh-my-posh init zsh --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/catppuccin_mocha.omp.json')"
