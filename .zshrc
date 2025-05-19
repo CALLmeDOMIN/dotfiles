@@ -34,6 +34,8 @@ alias cls='cl && ls'
 alias repos='cd ~/repos'
 alias cdr='cd ~'
 alias vim='nvim'
+alias f='cd $(fd --type d --hidden --exclude .git --exclude node_module --exclude .cache --exclude .npm --exclude .mozilla --exclude .meteor --exclude .nv | fzf)'
+
 
 # console ninja
 PATH=~/.console-ninja/.bin:$PATH
@@ -53,6 +55,9 @@ if [ -d "$FNM_PATH" ]; then
 fi
 
 export PATH=$HOME/.local/bin:$PATH
+
+# for non-pattern search like in bash 
+bindkey "^R" history-incremental-search-backward
 
 # oh-my-posh
 eval "$(oh-my-posh init zsh --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/catppuccin_mocha.omp.json')"
