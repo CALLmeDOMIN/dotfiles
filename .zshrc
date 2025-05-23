@@ -20,7 +20,7 @@ bindkey -v
 # End of lines configured by zsh-newuser-install
 
 # go
-export PATH=$PATH:/usr/local/go/bin
+export PATH="$PATH:$(go env GOBIN):$(go env GOPATH)/bin"
 
 # aliases
 alias cl='clear'
