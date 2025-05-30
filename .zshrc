@@ -1,13 +1,3 @@
-# The following lines were added by compinstall
-
-zstyle ':completion:*' completer _complete _ignored _approximate
-zstyle ':completion:*' matcher-list 'r:|[._-]=** r:|=**' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:]}={[:upper:]}' 'l:|=* r:|=*'
-zstyle ':completion:*' max-errors 2 numeric
-zstyle :compinstall filename '/home/domin/.zshrc'
-
-autoload -Uz compinit
-compinit
-
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -16,8 +6,6 @@ SAVEHIST=1000
 setopt notify
 unsetopt beep
 bindkey -v
-
-# End of lines configured by zsh-newuser-install
 
 # go
 export PATH="$PATH:$(go env GOBIN):$(go env GOPATH)/bin"
@@ -36,11 +24,10 @@ alias cdr='cd ~'
 alias vim='nvim'
 alias f='cd $(fd --type d --hidden --exclude .git --exclude node_module --exclude .cache --exclude .npm --exclude .mozilla --exclude .meteor --exclude .nv | fzf)'
 
-
 # console ninja
 PATH=~/.console-ninja/.bin:$PATH
 
-# bun completions
+# bun completions #! wrong path
 [ -s "/home/cmd/.bun/_bun" ] && source "/home/cmd/.bun/_bun"
 
 # bun

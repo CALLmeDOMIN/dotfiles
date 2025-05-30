@@ -1,5 +1,10 @@
-vim.opt.clipboard = "unnamedplus"
-vim.opt.relativenumber = true
+vim.o.clipboard = "unnamedplus"
+vim.o.relativenumber = true
+vim.o.expandtab = true
+vim.o.mouse = "a"
+vim.o.wrap = false
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
 
 -- Hyprlang LSP
 vim.api.nvim_create_autocmd({'BufEnter', 'BufWinEnter'}, {
