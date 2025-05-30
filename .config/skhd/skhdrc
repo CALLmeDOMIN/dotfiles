@@ -58,3 +58,4 @@ shift + alt - 9 : yabai -m window --space 9;
 
 # applications
 alt - t : open -n -a Ghostty
+

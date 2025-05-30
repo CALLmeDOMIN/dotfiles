@@ -2,7 +2,7 @@ local colors = require("colors")
 
 -- Equivalent to the --bar domain
 sbar.bar({
-  topmost = "window",
+  -- topmost = "window",
   height = 40,
   color = colors.with_alpha(colors.bg2, 0.0),
   padding_right = 5,

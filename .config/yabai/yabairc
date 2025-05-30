@@ -48,6 +48,7 @@ setup_space 8
 setup_space 9
 
 # do not manage
-yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^TinkerTool$" manage=off
 yabai -m rule --add app="^Raycast$" manage=off
 yabai -m rule --add label="Zen PIP" app="^Zen$" title="^(Picture-in-Picture)$" manage=off

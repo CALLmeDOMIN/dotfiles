@@ -43,6 +43,8 @@ alias exp='explorer.exe .'
 alias cls='cl && ls'
 alias repos='cd ~/repos'
 alias vim='nvim'
+alias f='cd $(fd --type d --hidden --exclude .git --exclude node_module --exclude .cache --exclude .npm --exclude .mozilla --exclude .meteor --exclude .nv | fzf)'
+alias clients='yabai -m query --windows'
 
 # console ninja
 PATH=~/.console-ninja/.bin:$PATH
