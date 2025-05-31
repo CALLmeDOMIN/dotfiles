@@ -8,45 +8,45 @@ sbar.exec("killall network_load >/dev/null; $CONFIG_DIR/helpers/event_providers/
 
 local popup_width = 250
 
-local wifi_up = sbar.add("item", "widgets.wifi1", {
-  position = "right",
-  padding_left = 0,
-  padding_right = 25,
-  width = 0,
-  label = {
-    font = {
-      family = settings.font.numbers,
-      style = settings.font.style_map["Bold"],
-      size = 10.0,
-    },
-    color = colors.red,
-    string = "Unknown SSID",
-  },
-  y_offset = 0,
-})
-
-wifi_up:subscribe({"wifi_change", "system_woke"}, function(env)
-  sbar.exec("ipconfig getsummary en0 | awk -F ' SSID : '  '/ SSID : / {print $2}'", function(result)
-    local ssid = result:gsub("\n", "") -- Remove newline characters
-    wifi_up:set({
-      label = {
-        string = ssid,
-        color = colors.red
-      }
-    })
-  end)
-end)
+-- local wifi_up = sbar.add("item", "widgets.wifi1", {
+--   position = "right",
+--   padding_left = 0,
+--   padding_right = 25,
+--   width = 0,
+--   label = {
+--     font = {
+--       family = settings.font.numbers,
+--       style = settings.font.style_map["Bold"],
+--       size = 10.0,
+--     },
+--     color = colors.red,
+--     string = "Unknown SSID",
+--   },
+--   y_offset = 0,
+-- })
+--
+-- wifi_up:subscribe({"wifi_change", "system_woke"}, function(env)
+--   sbar.exec("ipconfig getsummary en0 | awk -F ' SSID : '  '/ SSID : / {print $2}'", function(result)
+--     local ssid = result:gsub("\n", "") -- Remove newline characters
+--     wifi_up:set({
+--       label = {
+--         string = ssid,
+--         color = colors.red
+--       }
+--     })
+--   end)
+-- end)
 
 local wifi = sbar.add("item", "widgets.wifi.padding", {
   position = "right",
-  padding_right = 6,
+  padding_right = 4,
   label = { drawing = false },
 })
 
 -- Background around the item
 local wifi_bracket = sbar.add("bracket", "widgets.wifi.bracket", {
   wifi.name,
-  wifi_up.name,
+  -- wifi_up.name,
 }, {
   background = { color = colors.bg1 },
   popup = { align = "left", height = 30 }
@@ -167,7 +167,7 @@ local function toggle_details()
   end
 end
 
-wifi_up:subscribe("mouse.clicked", toggle_details)
+-- wifi_up:subscribe("mouse.clicked", toggle_details)
 wifi:subscribe("mouse.clicked", toggle_details)
 wifi:subscribe("mouse.exited.global", hide_details)
 

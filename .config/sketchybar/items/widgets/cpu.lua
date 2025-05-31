@@ -1,69 +1,85 @@
--- local icons = require("icons")
--- local colors = require("colors")
--- local settings = require("settings")
+local icons = require("icons")
+local colors = require("colors")
+local settings = require("settings")
 
--- -- Execute the event provider binary which provides the event "cpu_update" for
--- -- the cpu load data, which is fired every 2.0 seconds.
--- sbar.exec("killall cpu_load >/dev/null; $CONFIG_DIR/helpers/event_providers/cpu_load/bin/cpu_load cpu_update 2.0")
+-- Execute the event provider binary which provides the event "cpu_update" for
+-- the cpu load data, which is fired every 2.0 seconds.
+sbar.exec("killall cpu_load >/dev/null; $CONFIG_DIR/helpers/event_providers/cpu_load/bin/cpu_load cpu_update 2.0")
 
--- local cpu = sbar.add("graph", "widgets.cpu" , 42, {
---   position = "right",
---   graph = { color = colors.blue },
---   background = {
---     height = 22,
---     color = { alpha = 0 },
---     border_color = { alpha = 0 },
---     drawing = true,
---   },
---   icon = { string = icons.cpu },
---   label = {
---     string = "cpu ??%",
---     font = {
---       family = settings.font.numbers,
---       style = settings.font.style_map["Bold"],
---       size = 9.0,
---     },
---     align = "right",
---     padding_right = 0,
---     width = 0,
---     y_offset = 4
---   },
---   padding_right = settings.paddings + 6
--- })
+-- Item for the CPU percentage text
+local cpu_percent = sbar.add("item", "widgets.cpu1" , {
+  position = "right",
+  padding_left = 0,
+  icon = { drawing = false },
+  label = {
+    string = "??%",
+    font = {
+        family = settings.font.numbers,
+        style = settings.font.style_map["Bold"],
+        size = 14.0,
+    },
+  },
+})
 
--- cpu:subscribe("cpu_update", function(env)
---   -- Also available: env.user_load, env.sys_load
---   local load = tonumber(env.total_load)
---   cpu:push({ load / 100. })
+-- Item for the CPU icon
+local cpu_icon = sbar.add("item", "widgets.cpu2", {
+  position = "right",
+  padding_right = 0,
+  icon = {
+    string = icons.cpu,
+    align = "left",
+    color = colors.white,
+    font = {
+        style = settings.font.style_map["Regular"],
+        size = 14.0,
+    },
+  },
+  label = { drawing = false },
+})
 
---   local color = colors.blue
---   if load > 30 then
---     if load < 60 then
---       color = colors.yellow
---     elseif load < 80 then
---       color = colors.orange
---     else
---       color = colors.red
---     end
---   end
+-- Subscribe to the "cpu_update" event for BOTH items
+cpu_percent:subscribe("cpu_update", function(env)
+  local load = tonumber(env.total_load)
 
---   cpu:set({
---     graph = { color = color },
---     label = "cpu " .. env.total_load .. "%",
---   })
--- end)
+  -- Update the label of the percentage item
+  cpu_percent:set({
+    label = env.total_load .. "%",
+  })
+end)
 
--- cpu:subscribe("mouse.clicked", function(env)
---   sbar.exec("open -a 'Activity Monitor'")
--- end)
+cpu_icon:subscribe("cpu_update", function(env)
+  local load = tonumber(env.total_load)
 
--- -- Background around the cpu item
--- sbar.add("bracket", "widgets.cpu.bracket", { cpu.name }, {
---   background = { color = colors.bg1 }
--- })
+  local color = colors.white
+  if load > 30 then
+    if load < 60 then
+      color = colors.yellow
+    elseif load < 80 then
+      color = colors.orange
+    else
+      color = colors.red
+    end
+  end
 
--- -- Background around the cpu item
--- sbar.add("item", "widgets.cpu.padding", {
---   position = "right",
---   width = settings.group_paddings
--- })
+  cpu_icon:set({
+    icon = { color = color },
+  })
+end)
+
+-- Subscribe to the "mouse.clicked" event for the icon item
+cpu_icon:subscribe("mouse.clicked", function(env)
+  sbar.exec("open -a 'Activity Monitor'")
+end)
+
+-- Background around BOTH cpu items
+sbar.add("bracket", "widgets.cpu.bracket", { cpu_percent.name, cpu_icon.name }, {
+  background = { color = colors.bg1 }
+})
+
+-- Background around the cpu item (adjust or remove as needed)
+-- This padding item might need its width adjusted based on the combined width of your new items
+sbar.add("item", "widgets.cpu.padding", {
+  position = "right",
+  width = settings.group_paddings
+})
+

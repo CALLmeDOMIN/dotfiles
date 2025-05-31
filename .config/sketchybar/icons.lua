@@ -44,6 +44,15 @@ local icons = {
 
   -- Alternative NerdFont icons
   nerdfont = {
+    app_discord = "󰙯",
+    app_terminal = "",
+    app_ghostty = "",
+    app_chrome = "󰊯",
+    app_vscode = "󰨞",
+    app_finder = "󰀶",
+    app_web_browser = "󰖟",
+    gear = "",
+
     plus = "",
     loading = "",
     apple = "",
