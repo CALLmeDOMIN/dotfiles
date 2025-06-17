@@ -1,1 +1,14 @@
-zen/
+# Ignore the version control directory
+\.git
+
+# Ignore this file itself
+\.stow-local-ignore
+
+# Ignore any README or LICENSE files
+README\.md
+LICENSE
+
+# Your custom ignores
+zen
+scripts
+
