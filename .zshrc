@@ -49,5 +49,5 @@ bindkey "^R" history-incremental-search-backward
 # oh-my-posh
 eval "$(oh-my-posh init zsh --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/catppuccin_mocha.omp.json')"
 
-neofetch
+fastfetch
 fortune
