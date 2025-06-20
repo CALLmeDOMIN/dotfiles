@@ -9,7 +9,7 @@ return {
   ["Code"] = loaded_icons.app_vscode,
   ["Finder"] = loaded_icons.app_finder,
   ["System Settings"] = loaded_icons.gear,
-  ["Zen Browser"] = loaded_icons.app_web_browser,
+  ["Zen"] = loaded_icons.app_zen,
 
   ["default"] = loaded_icons.app_terminal,
                                           

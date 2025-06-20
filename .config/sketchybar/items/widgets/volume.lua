@@ -41,7 +41,9 @@ local volume_bracket = sbar.add("bracket", "widgets.volume.bracket", {
   volume_icon.name,
   volume_percent.name
 }, {
-  background = { color = colors.bg1 },
+  background = { 
+      color = colors.bg1, 
+  },
   popup = { align = "center" }
 })
 
@@ -56,7 +58,7 @@ local volume_slider = sbar.add("slider", popup_width, {
     highlight_color = colors.blue,
     background = {
       height = 6,
-      corner_radius = 3,
+      corner_radius = 5,
       color = colors.bg2,
     },
     knob= {
@@ -69,7 +71,8 @@ local volume_slider = sbar.add("slider", popup_width, {
 })
 
 volume_percent:subscribe("volume_change", function(env)
-  local volume = math.floor(tonumber(env.INFO) * 50 / 9)
+  local volume = math.floor(tonumber(env.INFO) * 50 / 13)
+  -- local volume = math.floor(tonumber(env.INFO) * 50 / 9)
   local icon = icons.volume._0
   if volume > 60 then
     icon = icons.volume._100

@@ -5,21 +5,21 @@ return {
 	green = 0xff3e8fb0,    -- pine
 	blue = 0xff9ccfd8,     -- foam
 	yellow = 0xfff6c177,   -- gold
-	orange = 0xffea9a97,   -- rose
+	orange = 0xffff8000,   -- rose
 	magenta = 0xffc4a7e7,  -- iris
 	grey = 0xff6e6a86,     -- muted
 	transparent = 0x00000000,
 
 	bar = {
-		bg = 0xff2a273f,       -- surface
-		border = 0xff524f67,   -- highlightHigh
+		bg = 0x002a273f,       -- surface
+		border = 0x00524f67,   -- highlightHigh
 	},
 	popup = {
-		bg = 0xc0393552,       -- overlay with alpha
-		border = 0xff44415a,   -- highlightMed
+		bg = 0xff000000,       -- overlay with alpha
+		border = 0x0044415a,   -- highlightMed
 	},
-	bg1 = 0xff2a283e,         -- highlightLow
-	bg2 = 0xff393552,         -- overlay
+	bg1 = 0xaa000000,         -- background
+	bg2 = 0xccff8000,         -- border
 
 	with_alpha = function(color, alpha)
 		if alpha > 1.0 or alpha < 0.0 then

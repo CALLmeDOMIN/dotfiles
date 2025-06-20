@@ -51,6 +51,7 @@ local icons = {
     app_vscode = "󰨞",
     app_finder = "󰀶",
     app_web_browser = "󰖟",
+    app_zen = "",
     gear = "",
 
     plus = "",

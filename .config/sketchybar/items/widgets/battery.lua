@@ -8,9 +8,15 @@ local battery = sbar.add("item", "widgets.battery", {
     font = {
       style = settings.font.style_map["Regular"],
       size = 19.0,
-    }
+    },
+    padding_right = 0,
   },
-  label = { font = { family = settings.font.numbers } },
+  label = { 
+      font = { 
+          style = settings.font.style_map["Bold"],
+          family = settings.font.numbers, 
+      }
+  },
   update_freq = 180,
   popup = { align = "center" }
 })
@@ -41,7 +47,7 @@ battery:subscribe({"routine", "power_source_change", "system_woke"}, function()
       label = charge .. "%"
     end
 
-    local color = colors.green
+    local color = colors.white
     local charging, _, _ = batt_info:find("AC Power")
 
     if charging then
@@ -55,7 +61,7 @@ battery:subscribe({"routine", "power_source_change", "system_woke"}, function()
         icon = icons.battery._50
       elseif found and charge > 20 then
         icon = icons.battery._25
-        color = colors.orange
+        color = colors.white
       else
         icon = icons.battery._0
         color = colors.red
@@ -91,7 +97,9 @@ battery:subscribe("mouse.clicked", function(env)
 end)
 
 sbar.add("bracket", "widgets.battery.bracket", { battery.name }, {
-  background = { color = colors.bg1 }
+  background = { 
+      color = colors.bg1, 
+  },
 })
 
 sbar.add("item", "widgets.battery.padding", {

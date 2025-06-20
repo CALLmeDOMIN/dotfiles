@@ -18,6 +18,7 @@ local cpu_percent = sbar.add("item", "widgets.cpu1" , {
         style = settings.font.style_map["Bold"],
         size = 14.0,
     },
+    y_offset = 1,
   },
 })
 
@@ -32,7 +33,8 @@ local cpu_icon = sbar.add("item", "widgets.cpu2", {
     font = {
         style = settings.font.style_map["Regular"],
         size = 14.0,
-    },
+     },
+     y_offset = 1,
   },
   label = { drawing = false },
 })
@@ -73,7 +75,9 @@ end)
 
 -- Background around BOTH cpu items
 sbar.add("bracket", "widgets.cpu.bracket", { cpu_percent.name, cpu_icon.name }, {
-  background = { color = colors.bg1 }
+  background = { 
+      color = colors.bg1, 
+  }
 })
 
 -- Background around the cpu item (adjust or remove as needed)

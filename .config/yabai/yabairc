@@ -52,3 +52,4 @@ yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^TinkerTool$" manage=off
 yabai -m rule --add app="^Raycast$" manage=off
 yabai -m rule --add label="Zen PIP" app="^Zen$" title="^(Picture-in-Picture)$" manage=off
+yabai -m rule --add app="^Google Chrome$" title="^(Picture in Picture)$" manage=off

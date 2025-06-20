@@ -7,26 +7,29 @@ sbar.add("item", { position = "right", width = settings.group_paddings })
 local cal = sbar.add("item", {
   icon = {
     color = colors.white,
-    padding_left = 8,
+    padding_left = settings.paddings * 2.5,
     font = {
-      style = settings.font.style_map["Regular"],
-      size = 12.0,
+      style = settings.font.style_map["Bold"],
+      size = 19.0,
     },
   },
   label = {
     color = colors.white,
-    padding_right = 8,
+    padding_right = settings.paddings * 2,
     width = 125,
     align = "right",
     font = {
       family = settings.font.numbers,
-      style = settings.font.style_map["Regular"],
+      style = settings.font.style_map["Bold"],
     },
   },
   position = "right",
   update_freq = 30,
-  padding_left = 1,
-  padding_right = 1,
+  padding_left = settings.group_paddings,
+  padding_right = 0,
+  background = { 
+      color = colors.bg1,
+  },
 })
 
 
