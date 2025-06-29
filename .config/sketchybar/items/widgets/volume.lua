@@ -70,9 +70,20 @@ local volume_slider = sbar.add("slider", popup_width, {
   click_script = 'osascript -e "set volume output volume $PERCENTAGE"'
 })
 
+local MAX_RAW_VOLUME = 26.0
+
 volume_percent:subscribe("volume_change", function(env)
-  local volume = math.floor(tonumber(env.INFO) * 50 / 13)
-  -- local volume = math.floor(tonumber(env.INFO) * 50 / 9)
+  if env.INFO == "muted" then
+    volume_icon:set({ label = icons.volume._muted })
+    volume_percent:set({ label = "00%" })
+    volume_slider:set({ slider = { percentage = 0 } })
+    return
+  end
+
+  local raw_volume = tonumber(env.INFO)
+
+  local volume = math.floor((raw_volume / MAX_RAW_VOLUME) * 100)
+
   local icon = icons.volume._0
   if volume > 60 then
     icon = icons.volume._100
@@ -87,6 +98,8 @@ volume_percent:subscribe("volume_change", function(env)
   local lead = ""
   if volume < 10 then
     lead = "0"
+  elseif volume >= 100 then
+    lead = ""
   end
 
   volume_icon:set({ label = icon })
