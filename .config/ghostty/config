@@ -1,4 +1,4 @@
-theme = catppuccin-mocha
+theme = Catppuccin Mocha
 
 window-padding-x = 2
 
@@ -7,3 +7,6 @@ font-size = 18
 font-feature = -calt, -liga, -dlig
 
 background-opacity = 0.9
+
+keybind = performable:ctrl+c=copy_to_clipboard
+keybind = ctrl+v=paste_from_clipboard
