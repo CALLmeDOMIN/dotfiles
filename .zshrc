@@ -16,15 +16,9 @@ HISTSIZE=1000
 SAVEHIST=1000
 setopt notify
 unsetopt beep
-bindkey -v
 
 # brew
 export PATH="/opt/homebrew/bin:$PATH"
-
-# oh-my-posh
-if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-  eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/catppuccin_mocha.omp.json)"
-fi
 
 # fnm
 eval "$(fnm env --use-on-cd)"
@@ -45,6 +39,7 @@ alias repos='cd ~/repos'
 alias vim='nvim'
 alias f='cd $(fd --type d --hidden --exclude .git --exclude node_module --exclude .cache --exclude .npm --exclude .mozilla --exclude .meteor --exclude .nv | fzf)'
 alias clients='yabai -m query --windows'
+alias count='ls -1 | wc -l'
 
 # console ninja
 PATH=~/.console-ninja/.bin:$PATH
@@ -74,6 +69,10 @@ esac
 
 # oh-my-posh
 eval "$(oh-my-posh init zsh --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/catppuccin_mocha.omp.json')"
+bindkey -e
 
 fastfetch
 fortune
+
+# Added by Antigravity
+export PATH="/Users/cmdmac/.antigravity/antigravity/bin:$PATH"
