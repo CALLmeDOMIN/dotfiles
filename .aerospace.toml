@@ -158,6 +158,16 @@ on-mode-changed = []
     # custom
     alt-t = 'exec-and-forget open -n /Applications/Ghostty.app'
 
+[workspace-to-monitor-force-assignment]
+    1 = '^built-in retina display$'
+    2 = '^built-in retina display$'
+    3 = '^built-in retina display$'
+    4 = '^built-in retina display$'
+    5 = '^built-in retina display$'
+    6 = ['^(d|D)(ell|ELL).*1.$', 1]
+    7 = ['^(d|D)(ell|ELL).*1.$', 1]
+    8 = ['^(d|D)(ell|ELL).*2.$', 3]
+    9 = ['^(d|D)(ell|ELL).*2.$', 3]
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes

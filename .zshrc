@@ -5,10 +5,7 @@ zstyle ':completion:*' insert-unambiguous true
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
 zstyle ':completion:*' matcher-list 'r:|[._-]=** r:|=**' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
-zstyle :compinstall filename '/Users/cmdmac/.zshrc'
-
-autoload -Uz compinit
-compinit
+zstyle :compinstall filename "$HOME/.zshrc"
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -16,6 +13,25 @@ HISTSIZE=1000
 SAVEHIST=1000
 setopt notify
 unsetopt beep
+
+# FZF CACHE
+FZF_DIR_CACHE="$HOME/.cache/fd_dirs.txt"
+
+update_dir_cache() {
+  local lockfile="$HOME/.cache/fd_dirs.lock"
+  ( if ( set -o noclobber; > "$lockfile" ) 2>/dev/null; then
+      trap "rm -f '$lockfile'" EXIT
+      fd --type d --hidden \
+        --exclude .git --exclude node_modules --exclude .cache \
+        --exclude .npm --exclude .mozilla --exclude .meteor --exclude .nv \
+        --base-directory "$HOME" \
+        > "$FZF_DIR_CACHE" 2>/dev/null
+      rm -f "$lockfile"
+    fi & )
+}
+
+alias f='cd "$HOME/$(cat "$FZF_DIR_CACHE" | fzf)"'
+
 
 # brew
 export PATH="/opt/homebrew/bin:$PATH"
@@ -37,15 +53,13 @@ alias exp='explorer.exe .'
 alias cls='cl && ls'
 alias repos='cd ~/repos'
 alias vim='nvim'
-alias f='cd $(fd --type d --hidden --exclude .git --exclude node_module --exclude .cache --exclude .npm --exclude .mozilla --exclude .meteor --exclude .nv | fzf)'
-alias clients='yabai -m query --windows'
 alias count='ls -1 | wc -l'
 
 # console ninja
 PATH=~/.console-ninja/.bin:$PATH
 
 # bun completions
-[ -s "/Users/cmdmac/.bun/_bun" ] && source "/Users/cmdmac/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
@@ -61,18 +75,25 @@ fi
 export PATH=$HOME/.local/bin:$PATH
 
 # pnpm
-export PNPM_HOME="/Users/cmdmac/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
 # oh-my-posh
-eval "$(oh-my-posh init zsh --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/catppuccin_mocha.omp.json')"
+if command -v oh-my-posh >/dev/null; then
+  eval "$(oh-my-posh init zsh --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/catppuccin_mocha.omp.json')"
+fi
 bindkey -e
+
+# Added by Antigravity
+export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
+
+
+# per-machine overrides (untracked)
+[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
 
 fastfetch
 fortune
-
-# Added by Antigravity
-export PATH="/Users/cmdmac/.antigravity/antigravity/bin:$PATH"
+update_dir_cache
