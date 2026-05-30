@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../src/throw-dice.tsx"],
+  "sourcesContent": ["import { showToast, Toast } from \"@raycast/api\";\n\nexport default async function Command() {\n  const toast = await showToast({ style: Toast.Style.Animated, title: \"Throwing die...\" });\n  const result: string = Math.ceil(Math.random() * 6).toString();\n  await wait(600);\n  toast.style = Toast.Style.Success;\n  toast.title = `\uD83C\uDFB2 ${result}`;\n  await wait(1000);\n}\n\nconst wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));\n"],
+  "mappings": "yaAAA,IAAAA,EAAA,GAAAC,EAAAD,EAAA,aAAAE,IAAA,eAAAC,EAAAH,GAAA,IAAAI,EAAiC,wBAEjC,eAAOF,GAAiC,CACtC,IAAMG,EAAQ,QAAM,aAAU,CAAE,MAAO,QAAM,MAAM,SAAU,MAAO,iBAAkB,CAAC,EACjFC,EAAiB,KAAK,KAAK,KAAK,OAAO,EAAI,CAAC,EAAE,SAAS,EAC7D,MAAMC,EAAK,GAAG,EACdF,EAAM,MAAQ,QAAM,MAAM,QAC1BA,EAAM,MAAQ,aAAMC,CAAM,GAC1B,MAAMC,EAAK,GAAI,CACjB,CAEA,IAAMA,EAAQC,GAAe,IAAI,QAASC,GAAY,WAAWA,EAASD,CAAE,CAAC",
+  "names": ["throw_dice_exports", "__export", "Command", "__toCommonJS", "import_api", "toast", "result", "wait", "ms", "resolve"]
+}
