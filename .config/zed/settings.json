@@ -14,28 +14,28 @@
     "folder_icons": true,
     "file_icons": true,
     "sort_by_path": false,
-    "tree_view": true,
+    "tree_view": true
   },
   "cli_default_open_behavior": "new_window",
   "session": {
-    "trust_all_worktrees": true,
+    "trust_all_worktrees": true
   },
   "vim_mode": true,
   "terminal": {
     "font_family": "JetBrainsMono Nerd Font",
     "env": {},
-    "font_size": 20.0,
+    "font_size": 20.0
   },
   "tab_bar": {
-    "show": false,
+    "show": false
   },
   "relative_line_numbers": "enabled",
   "mouse_wheel_zoom": true,
   "gutter": {
-    "line_numbers": true,
+    "line_numbers": true
   },
   "minimap": {
-    "show": "never",
+    "show": "never"
   },
   "autosave": "on_window_change",
   "buffer_font_family": "JetBrainsMono Nerd Font",
@@ -125,9 +125,9 @@
       "cinttypes",
       "print",
       "text_encoding",
-      "map",
+      "map"
     ],
-    "c": ["stdio.h", "math.h", "stdlib.h"],
+    "c": ["stdio.h", "math.h", "stdlib.h"]
   },
   "auto_indent_on_paste": true,
   "linked_edits": true,
@@ -135,32 +135,32 @@
   "icon_theme": {
     "mode": "dark",
     "light": "Colored Zed Icons Theme Dark",
-    "dark": "Colored Zed Icons Theme Dark",
+    "dark": "Colored Zed Icons Theme Dark"
   },
   "agent_servers": {
     "claude-acp": {
-      "type": "registry",
-    },
+      "type": "registry"
+    }
   },
   "base_keymap": "VSCode",
   "ui_font_size": 16,
   "theme": {
     "mode": "dark",
     "light": "One Light",
-    "dark": "Tokyo Night",
+    "dark": "Tokyo Night"
   },
   "languages": {
     "JavaScript": {
       "formatter": {
         "external": {
           "command": "prettier",
-          "arguments": ["--stdin-filepath", "{buffer_path}"],
-        },
-      },
-    },
+          "arguments": ["--stdin-filepath", "{buffer_path}"]
+        }
+      }
+    }
   },
   "buffer_font_features": {
-    "calt": false,
+    "calt": false
   },
-  "file_scan_exclusions": ["**/.worktrees"],
+  "file_scan_exclusions": ["**/.worktrees"]
 }

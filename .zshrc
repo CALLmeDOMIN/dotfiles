@@ -54,6 +54,43 @@ alias cls='cl && ls'
 alias repos='cd ~/repos'
 alias vim='nvim'
 alias count='ls -1 | wc -l'
+alias wtls='git wtls'
+
+# WORKTREES
+wt() {
+  local root parent repo wt_path
+  root=$(git rev-parse --show-toplevel) || return 1
+  parent=$(dirname "$root")
+  repo=$(basename "$root")
+  wt_path="$parent/${repo}-worktrees/$1"
+  mkdir -p "$parent/${repo}-worktrees"
+  git fetch origin --quiet
+  if git show-ref --verify --quiet "refs/heads/$1" || git show-ref --verify --quiet "refs/remotes/origin/$1"; then
+    git worktree add "$wt_path" "$1"
+  else
+    git worktree add "$wt_path" -b "$1" origin/master
+  fi
+  cd "$wt_path" && zed .
+  update_dir_cache
+}
+
+wtrm() {
+    local target=$(cd "$1" && pwd)
+    [[ "$PWD" == "$target"* ]] && cd "$(git rev-parse --show-toplevel)/.."
+    git worktree remove "$target"
+    update_dir_cache
+}
+
+wts() {
+  git rev-parse --is-inside-work-tree >/dev/null 2>&1 || {
+    echo "wts: not in a git repository — cd into one first (try \`f\`)" >&2
+    return 1
+  }
+  local selected
+  selected=$(git worktree list | fzf --preview 'echo {}') 
+  [[ -z "$selected" ]] && return 1
+  cd "${selected%% *}" && zed .
+}
 
 # console ninja
 PATH=~/.console-ninja/.bin:$PATH

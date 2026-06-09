@@ -1,5 +1,6 @@
 [core]
-    editor = code --wait
+    editor = zed --wait
+	excludesfile = /Users/dominiksieron/.gitignore_global
 [user]
     name = Dominik Sieroń
     email = 71605737+CALLmeDOMIN@users.noreply.github.com
@@ -8,7 +9,7 @@
     st = status
     sw = switch
     swtich = switch
-    sm = switch main
+    sm = switch master
     fo = fetch origin
     conf = config --global --edit
     cge = config --global --edit
@@ -24,7 +25,10 @@
     pr = pull --rebase
     amend = commit -a --amend --no-edit
     coam = commit -a --amend --no-edit
+    wtls = worktree list
 [init]
 	defaultBranch = main
 [credential]
 	helper = osxkeychain
+[includeIf "gitdir:~/repos/"]
+	path = /Users/dominiksieron/.gitconfig-repos
