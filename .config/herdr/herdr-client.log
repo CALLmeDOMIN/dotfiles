@@ -1,0 +1,6 @@
+2026-08-02T16:04:10.022949Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=35890
+2026-08-02T16:04:10.023047Z  INFO herdr::client: connecting to server path=/Users/cmdmac/.config/herdr/herdr-client.sock
+2026-08-02T16:04:10.203011Z  INFO herdr::client: handshake succeeded version=17 encoding=SemanticFrame
+2026-08-02T16:06:47.971526Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=37919
+2026-08-02T16:06:47.971901Z  INFO herdr::client: connecting to server path=/Users/cmdmac/.config/herdr/herdr-client.sock
+2026-08-02T16:06:47.997989Z  INFO herdr::client: handshake succeeded version=17 encoding=SemanticFrame

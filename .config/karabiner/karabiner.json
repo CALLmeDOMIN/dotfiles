@@ -5,24 +5,6 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Lock Screen using Left Option + Left Shift + L",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "l",
-                                    "modifiers": { "mandatory": ["left_option", "left_shift"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "q",
-                                        "modifiers": ["left_control", "left_command"]
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "Remap alt+q to cmd+q",
                         "manipulators": [
                             {
@@ -34,6 +16,24 @@
                                     {
                                         "key_code": "q",
                                         "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Lock Screen using Left Option + Left Shift + L",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "l",
+                                    "modifiers": { "mandatory": ["left_option", "left_shift"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "q",
+                                        "modifiers": ["left_control", "left_command"]
                                     }
                                 ],
                                 "type": "basic"
@@ -81,7 +81,7 @@
                         },
                         {
                             "from": { "key_code": "left_option" },
-                            "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }]
+                            "to": [{ "key_code": "left_control" }]
                         }
                     ]
                 }
@@ -89,10 +89,6 @@
             "name": "Default profile",
             "selected": true,
             "simple_modifications": [
-                {
-                    "from": { "apple_vendor_top_case_key_code": "keyboard_fn" },
-                    "to": [{ "key_code": "left_command" }]
-                },
                 {
                     "from": { "key_code": "caps_lock" },
                     "to": [{ "key_code": "escape" }]
@@ -103,7 +99,7 @@
                 },
                 {
                     "from": { "key_code": "left_control" },
-                    "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }]
+                    "to": [{ "key_code": "left_command" }]
                 },
                 {
                     "from": { "key_code": "left_option" },
@@ -116,6 +112,10 @@
                 {
                     "from": { "key_code": "right_control" },
                     "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }]
+                },
+                {
+                    "from": { "apple_vendor_top_case_key_code": "keyboard_fn" },
+                    "to": [{ "key_code": "left_command" }]
                 }
             ],
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
