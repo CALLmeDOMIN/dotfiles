@@ -21,6 +21,14 @@ hl.layer_rule({
     no_anim = true,
 })
 
+-- Dunst notifications: same blur-behind-transparency look as ghostty
+hl.layer_rule({
+    name         = "dunst-blur",
+    match        = { namespace = "notifications" },
+    blur         = true,
+    ignore_alpha = 0,
+})
+
 -- Picture-in-Picture window (Zen browser)
 hl.window_rule({ match = { class = "^(zen)$", title = "^(Picture-in-Picture)$" }, float = true })
 hl.window_rule({ match = { class = "^(zen)$", title = "^(Picture-in-Picture)$" }, pin = true })

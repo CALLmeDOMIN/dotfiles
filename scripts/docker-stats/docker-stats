@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Waybar custom/docker module. Shows running container count; "class"
+# matches the custom-docker.* selectors in waybar/style.css.
+
+if ! output=$(docker ps --format '{{.Names}}' 2>&1); then
+    jq -nc --arg tooltip "Docker unavailable" '{text: "", tooltip: $tooltip, class: "docker-error"}'
+    exit 0
+fi
+
+running=$(grep -c . <<<"$output")
+
+if [ "$running" -eq 0 ]; then
+    jq -nc '{text: "🐳 0", tooltip: "No running containers", class: "docker-none"}'
+    exit 0
+fi
+
+names=$(paste -sd ', ' <<<"$output")
+
+jq -nc --arg text "🐳 ${running}" --arg tooltip "Running: ${names}" \
+    '{text: $text, tooltip: $tooltip, class: "docker"}'

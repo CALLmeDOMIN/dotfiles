@@ -7,26 +7,67 @@
   padding-bottom: 0px;
 }
 
+/* GTK3 tooltips have a separate "decoration" layer that paints its own
+   background/border/shadow behind the content box - neutralize that so
+   only the inner box's border/background is visible (otherwise the
+   decoration's box peeks out past our rounded border). */
+tooltip {
+  background: transparent;
+  border: none;
+}
+
+tooltip decoration {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  margin-top: 8px;
+}
+
+tooltip box {
+  background-color: #1e1e2e;
+  border: 2px solid #b4befe;
+  border-radius: 10px;
+}
+
+tooltip label {
+  color: #cdd6f4;
+  padding: 6px;
+}
+
 #waybar {
   background: transparent;
-  color: #c6d0f5;
+  color: #cdd6f4;
   margin: 5px;
 }
 
+/* ---- Standalone island modules ---- */
+
+/* Every island/group aims for the same ~1rem of edge padding before its
+   first/last piece of content, however it's actually composed:
+   - single-content islands (music/tray/clock/pulseaudio/weather): 1rem
+     directly on the island itself.
+   - workspaces: 0.6rem on each button + 0.4rem on the container = 1rem.
+   - groups (performance/connectivity/power): 0.7rem on each child +
+     0.3rem on the group container = 1rem. */
+
 #workspaces {
   border-radius: 5px;
-  margin: 5px 10px 5px 2px;
-  background: #101010;
+  margin: 5px 4px;
+  /* button padding is 0.1rem left / 0.6rem right (below) - compensate
+     here so the overall island still has ~1rem on each edge, matching
+     every other island/group */
+  padding: 0 0.4rem 0 0.9rem;
+  background: #11111b;
 }
 
 #workspaces button {
-  color: #babbf1;
+  color: #b4befe;
   border-radius: 5px;
   padding: 0.4rem 0.6rem 0.4rem 0.1rem;
 }
 
 #workspaces button.active {
-  color: #99d1db;
+  color: #89dceb;
   border-radius: 5px;
 }
 
@@ -36,121 +77,119 @@ button {
 }
 
 #workspaces button:hover {
-    box-shadow:none;
-    border: 1px solid;
+  box-shadow: none;
+  border: 1px solid;
 }
 
 #custom-music,
 #tray,
-#backlight,
 #clock,
-#battery,
 #pulseaudio,
-#network,
-#cpu,
-#memory,
-#custom-lock,
-#custom-power,
-#custom-weather,
-#custom-uptime,
-#custom-docker {
-  background-color: #101010;
+#custom-weather {
+  background-color: #11111b;
   padding: 0.5rem 1rem;
-  margin: 5px 0;
+  margin: 5px 4px;
+  border-radius: 5px;
 }
 
 #clock {
-  color: #8caaee;
-  border-radius: 5px;
-}
-
-#custom-weather {
-  color: #8caaee;
-  margin-left: 0.5rem;
-  border-radius: 5px;
-}
-
-#battery {
-  color: #a6d189;
-}
-
-#battery.charging {
-  color: #a6d189;
-}
-
-#battery.warning:not(.charging) {
-  color: #e78284;
-}
-
-#backlight {
-  color: #e5c890;
-}
-
-#backlight,
-#battery {
-  border-radius: 0;
+  color: #89b4fa;
 }
 
 #pulseaudio {
-  color: #ea999c;
-  border-radius: 5px 0px 0px 5px;
-}
-
-#custom-docker {
-  color: #85c1dc;
+  color: #eba0ac;
 }
 
 #custom-music {
-  color: #ca9ee6;
+  color: #cba6f7;
+}
+
+/* ---- Grouped "pill" modules ----
+   The group itself carries the background/border/margin; children inside
+   stay transparent and only get padding, so they render as one connected
+   shape instead of separate islands. */
+
+#performance,
+#connectivity,
+#power {
+  background-color: #11111b;
   border-radius: 5px;
+  margin: 5px 4px;
+  padding: 0 0.3rem;
+}
+
+#cpu,
+#memory,
+#custom-gpu,
+#network,
+#bluetooth,
+#custom-lock,
+#custom-power {
+  padding: 0.5rem 0.7rem;
+}
+
+#cpu {
+  color: #89b4fa;
+}
+
+#memory {
+  color: #a6e3a1;
+}
+
+#custom-gpu {
+  color: #f9e2af;
+}
+
+#network {
+  color: #b4befe;
+}
+
+#bluetooth {
+  color: #6c7086;
+}
+
+#bluetooth.connected {
+  color: #74c7ec;
+}
+
+#bluetooth.discovering,
+#bluetooth.discoverable,
+#bluetooth.pairable {
+  color: #94e2d5;
 }
 
 #custom-lock {
-  color: #babbf1;
+  color: #b4befe;
 }
 
 #custom-power {
-  margin-right: 5px;
-  border-radius: 0px 5px 5px 0px;
-  color: #e78284;
-}
-
-#custom-docker.docker {
-  color: #85c1dc;
-}
-
-#custom-docker.docker-none {
-  color: #737994;
-}
-
-#custom-docker.docker-error {
-  color: #e78284;
+  color: #f38ba8;
 }
 
 #custom-weather.clear {
-  color: #e5c890; /* Sunny yellow */
+  color: #f9e2af; /* Sunny yellow */
 }
 
 #custom-weather.cloud {
-  color: #99d1db; /* Light blue */
+  color: #89dceb; /* Light blue */
 }
 
 #custom-weather.rain {
-  color: #8caaee; /* Blue */
+  color: #89b4fa; /* Blue */
 }
 
 #custom-weather.snow {
-  color: #c6d0f5; /* White-ish */
+  color: #cdd6f4; /* White-ish */
 }
 
 #custom-weather.thunder {
-  color: #ca9ee6; /* Purple */
+  color: #cba6f7; /* Purple */
 }
 
 #custom-weather.fog {
-  color: #b0b4bc; /* Gray */
+  color: #a6adc8; /* Gray */
 }
 
 #custom-weather.error {
-  color: #e78284; /* Red */
+  color: #f38ba8; /* Red */
 }
