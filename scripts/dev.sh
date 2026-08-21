@@ -19,3 +19,24 @@ sudo pacman -S --noconfirm --needed \
   cmake \
   scdoc \
   glib2-devel
+
+# session/login stack (uwsm-managed Hyprland session via sddm)
+sudo pacman -S --noconfirm --needed uwsm sddm
+
+# notifications, cursor theming source, wallpaper->colorscheme pipeline
+sudo pacman -S --noconfirm --needed dunst python-pywal imagemagick
+
+# nvidia stats (used by waybar's gpu module)
+sudo pacman -S --noconfirm --needed nvidia-utils
+
+# networking GUI (nm-connection-editor)
+sudo pacman -S --noconfirm --needed network-manager-applet
+
+# hypr ecosystem extras
+sudo pacman -S --noconfirm --needed hyprtoolkit
+
+# system maintenance (paccache, pacdiff, reflector mirror refresh)
+sudo pacman -S --noconfirm --needed pacman-contrib reflector
+
+# used by waybar's weather/docker/gpu custom modules
+sudo pacman -S --noconfirm --needed jq
