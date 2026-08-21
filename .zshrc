@@ -21,8 +21,13 @@ alias exp='explorer.exe .'
 alias cls='cl && ls'
 alias repos='cd ~/repos'
 alias cdr='cd ~'
-alias vim='nvim .'
+alias vim='nvim'
 alias f='cd $(fd --type d --hidden --exclude .git --exclude node_module --exclude .cache --exclude .npm --exclude .mozilla --exclude .meteor --exclude .nv | fzf)'
+
+alias dev='~/dotfiles/scripts/dev.sh'
+alias devyay='~/dotfiles/scripts/dev-yay.sh'
+alias bye="hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown -P 0'"
+alias reboot="hyprshutdown -t 'Restarting...' --post-cmd 'reboot'"
 
 # console ninja
 PATH=~/.console-ninja/.bin:$PATH
@@ -51,3 +56,13 @@ eval "$(oh-my-posh init zsh --config 'https://raw.githubusercontent.com/JanDeDob
 
 fastfetch
 fortune
+
+# pnpm
+export PNPM_HOME="/home/cmdarch/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+set +H

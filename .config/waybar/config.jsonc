@@ -15,11 +15,11 @@
     "pulseaudio",
 //    "custom/uptime",
     "backlight",
-    "battery",
+//    "battery",
     "network",
     "cpu",
     "memory",
-    "custom/docker",
+//    "custom/docker",
     "tray",
     "custom/lock",
     "custom/power"
