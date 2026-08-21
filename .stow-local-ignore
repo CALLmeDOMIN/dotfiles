@@ -9,6 +9,6 @@ README\.md
 LICENSE
 
 # Your custom ignores
-zen
-scripts
+^/zen$
+^/scripts$
 
