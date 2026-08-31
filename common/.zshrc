@@ -36,15 +36,14 @@ alias f='cd "$HOME/$(cat "$FZF_DIR_CACHE" | fzf)"'
 # go (portable: works regardless of how go was installed)
 export PATH="$PATH:$(go env GOBIN 2>/dev/null):$(go env GOPATH 2>/dev/null)/bin"
 
-# fnm (check common install locations without hardcoding a specific machine's home dir)
-for fnm_dir in "/opt/homebrew/bin" "$HOME/.local/share/fnm" "$HOME/.fnm"; do
-  [ -d "$fnm_dir" ] || continue
-  case ":$PATH:" in *":$fnm_dir:"*) ;; *) export PATH="$fnm_dir:$PATH" ;; esac
-  break
-done
-if command -v fnm >/dev/null 2>&1; then
-  eval "$(fnm env --use-on-cd)"
-fi
+# java (asdf-managed)
+export JAVA_HOME="${ASDF_DATA_DIR:-$HOME/.asdf}/installs/java/corretto-21.0.8.9.1"
+
+# ASDF (portable shims/completions; the asdf.sh sourcing itself is OS-specific -
+# see macos/.zshrc-os / linux/.zshrc-os, since install method differs per OS)
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
+autoload -Uz compinit && compinit
 
 # aliases
 alias cl='clear'
@@ -61,6 +60,8 @@ alias wtls='git wtls'
 alias profile='vim ~/.zshrc'
 alias zshrc='vim ~/.zshrc'
 alias srcp='exec zsh'
+alias cc='claude'
+alias ccr='claude --resume'
 
 # WORKTREES
 wt() {
@@ -118,9 +119,16 @@ fi
 # OS-specific additions (provided by the macos/ or linux/ stow package)
 [ -f "$HOME/.zshrc-os" ] && source "$HOME/.zshrc-os"
 
+# identity-specific additions (work vs personal) - untracked, symlinked once per
+# machine to common/.zshrc-work or common/.zshrc-personal. See install.sh.
+[ -f "$HOME/.zshrc-identity" ] && source "$HOME/.zshrc-identity"
+
 # per-machine overrides (untracked)
 [ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
 
 fastfetch
 fortune
 update_dir_cache
+
+# corepack: never auto-write packageManager into package.json
+export COREPACK_ENABLE_AUTO_PIN=0

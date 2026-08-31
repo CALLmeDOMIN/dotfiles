@@ -7,3 +7,16 @@ case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
+
+# asdf (Homebrew install path)
+if [ -f /opt/homebrew/opt/asdf/libexec/asdf.sh ]; then
+  export ASDF_DIR="/opt/homebrew/opt/asdf/libexec"
+  . /opt/homebrew/opt/asdf/libexec/asdf.sh
+fi
+
+# Android
+export ANDROID_HOME=~/Library/Android/sdk/
+export PATH="$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH"
+
+# google-cloud-sdk (Homebrew install path)
+export PATH=/opt/homebrew/share/google-cloud-sdk/bin:"$PATH"

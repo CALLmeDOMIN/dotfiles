@@ -49,4 +49,13 @@ else
   echo "  ln -s $DOTFILES_DIR/common/.gitconfig-personal ~/.gitconfig-identity"
 fi
 
+# Same idea for zsh (e.g. work-only aliases in common/.zshrc-work). Only links
+# if a file for the chosen identity actually exists - not every identity needs one.
+if [ -e "$HOME/.zshrc-identity" ] || [ -L "$HOME/.zshrc-identity" ]; then
+  echo "~/.zshrc-identity already exists, leaving it as-is."
+elif { [ "$IDENTITY" = "work" ] || [ "$IDENTITY" = "personal" ]; } && [ -f "$DOTFILES_DIR/common/.zshrc-$IDENTITY" ]; then
+  ln -s "$DOTFILES_DIR/common/.zshrc-$IDENTITY" "$HOME/.zshrc-identity"
+  echo "Linked ~/.zshrc-identity -> common/.zshrc-$IDENTITY"
+fi
+
 echo "Done."

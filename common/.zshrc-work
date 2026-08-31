@@ -1,0 +1,7 @@
+alias withawsenv="op run --no-masking --env-file ~/repos/dev-env/aws.1password --"
+
+alias run_backend="withawsenv docker compose -f docker-compose-dev.yml --profile main-backend up --build -d"
+alias stop_backend="docker compose -f docker-compose-dev.yml --profile main-backend down"
+alias logs_backend="docker compose -f docker-compose-dev.yml logs -f goodlood-main-backend-app-local"
+
+alias assets_backend="poetry run python manage.py runserver --settings=assetTracker.settings.local 127.0.0.1:8000"

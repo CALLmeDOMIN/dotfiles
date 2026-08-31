@@ -2,3 +2,8 @@
 # Nothing arch's original .zshrc had turned out to be genuinely Linux-only
 # after reconciliation into common/.zshrc - this file is an intentional
 # empty extension point, not an oversight.
+
+# TODO when migrating the arch machine: it hasn't adopted asdf yet (still on
+# fnm, if anything). macOS sources asdf.sh from its Homebrew path; find the
+# equivalent path for however asdf gets installed on arch (pacman/AUR vs the
+# official git-clone installer use different locations) and add it here.
