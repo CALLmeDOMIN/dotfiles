@@ -1,0 +1,13 @@
+gcloud/
+github-copilot/
+op/
+simple-update-notifier/
+raycast/
+raycast-x/
+**/karabiner/automatic_backups/
+**/*.mdb/
+**/*.mdb
+
+# herdr: only track the config, not logs/session state/sockets
+macos/.config/herdr/*
+!macos/.config/herdr/config.toml

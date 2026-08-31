@@ -1,14 +1,10 @@
-[core]
-    editor = code --wait
 [user]
     name = Dominik Sieroń
-    email = 71605737+CALLmeDOMIN@users.noreply.github.com
 [alias]
     alias = !git config --get-regexp '^alias\\.' | grep -v '^alias\\.alias\\b'
     st = status
     sw = switch
     swtich = switch
-    sm = switch main
     fo = fetch origin
     conf = config --global --edit
     cge = config --global --edit
@@ -24,7 +20,16 @@
     pr = pull --rebase
     amend = commit -a --amend --no-edit
     coam = commit -a --amend --no-edit
+    wtls = worktree list
 [init]
-	defaultBranch = main
-[credential]
-	helper = osxkeychain
+    defaultBranch = main
+
+# OS-specific settings (editor, credential helper) - provided by the macos/ or linux/ stow package
+[include]
+    path = ~/.gitconfig-os
+
+# Identity (work vs personal email) - untracked, symlinked once per machine to
+# either ~/dotfiles/common/.gitconfig-work or ~/dotfiles/common/.gitconfig-personal.
+# See install.sh.
+[include]
+    path = ~/.gitconfig-identity

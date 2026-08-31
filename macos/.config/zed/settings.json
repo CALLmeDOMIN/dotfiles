@@ -1,0 +1,167 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "format_on_save": "on",
+  "git_panel": {
+    "group_by": "staging",
+    "show_count_badge": false,
+    "diff_stats": true,
+    "folder_icons": true,
+    "file_icons": true,
+    "sort_by_path": false,
+    "tree_view": true
+  },
+  "cli_default_open_behavior": "new_window",
+  "session": {
+    "trust_all_worktrees": true
+  },
+  "vim_mode": true,
+  "terminal": {
+    "font_family": "JetBrainsMono Nerd Font",
+    "env": {},
+    "font_size": 20.0
+  },
+  "tab_bar": {
+    "show": false
+  },
+  "relative_line_numbers": "enabled",
+  "mouse_wheel_zoom": true,
+  "gutter": {
+    "line_numbers": true
+  },
+  "minimap": {
+    "show": "never"
+  },
+  "autosave": "on_window_change",
+  "buffer_font_family": "JetBrainsMono Nerd Font",
+  "file_types": {
+    "markdown": ["*.rmd"],
+    "dotenv": [".env*"],
+    "javascript": ["*.js"],
+    "html": ["*.embeddedhtml"],
+    "cpp": [
+      "iostream",
+      "cmath",
+      "ostream",
+      "algorithm",
+      "atomic",
+      "bit",
+      "cctype",
+      "clocale",
+      "compare",
+      "concepts",
+      "cstdarg",
+      "cstddef",
+      "cstdint",
+      "cstdio",
+      "cstdlib",
+      "cstring",
+      "ctime",
+      "cwchar",
+      "exception",
+      "functional",
+      "initializer_list",
+      "iomanip",
+      "ios",
+      "iosfwd",
+      "istream",
+      "iterator",
+      "limits",
+      "list",
+      "locale",
+      "memory",
+      "new",
+      "stdexcept",
+      "streambuf",
+      "string",
+      "system_error",
+      "tuple",
+      "type_traits",
+      "typeinfo",
+      "unordered_map",
+      "utility",
+      "vector",
+      "xfacet",
+      "xhash",
+      "xiosbase",
+      "xlocale",
+      "xlocbuf",
+      "xlocinfo",
+      "xlocmes",
+      "xlocmon",
+      "xlocnum",
+      "xloctime",
+      "xmemory",
+      "xstddef",
+      "xstring",
+      "xtr1common",
+      "xutility",
+      "array",
+      "*.tcc",
+      "charconv",
+      "chrono",
+      "cwctype",
+      "deque",
+      "memory_resource",
+      "numeric",
+      "optional",
+      "random",
+      "ratio",
+      "string_view",
+      "format",
+      "fstream",
+      "numbers",
+      "span",
+      "sstream",
+      "variant",
+      "semaphore",
+      "stop_token",
+      "thread",
+      "cinttypes",
+      "print",
+      "text_encoding",
+      "map"
+    ],
+    "c": ["stdio.h", "math.h", "stdlib.h"]
+  },
+  "auto_indent_on_paste": true,
+  "linked_edits": true,
+  "show_edit_predictions": true,
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Colored Zed Icons Theme Dark",
+    "dark": "Colored Zed Icons Theme Dark"
+  },
+  "agent_servers": {
+    "claude-acp": {
+      "type": "registry"
+    }
+  },
+  "base_keymap": "VSCode",
+  "ui_font_size": 16,
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "Tokyo Night"
+  },
+  "languages": {
+    "JavaScript": {
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": ["--stdin-filepath", "{buffer_path}"]
+        }
+      }
+    }
+  },
+  "buffer_font_features": {
+    "calt": false
+  },
+  "file_scan_exclusions": ["**/.worktrees"]
+}

@@ -1,0 +1,4 @@
+[core]
+    editor = zed --wait
+[credential]
+    helper = osxkeychain

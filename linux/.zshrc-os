@@ -1,0 +1,4 @@
+# Linux-specific zsh additions go here (counterpart to macos/.zshrc-os).
+# Nothing arch's original .zshrc had turned out to be genuinely Linux-only
+# after reconciliation into common/.zshrc - this file is an intentional
+# empty extension point, not an oversight.

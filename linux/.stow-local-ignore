@@ -1,0 +1,13 @@
+# Ignore the version control directory
+\.git
+
+# Ignore this file itself
+\.stow-local-ignore
+
+# Ignore any README or LICENSE files
+README\.md
+LICENSE
+
+# Reference material, not meant to be symlinked into $HOME
+zen
+scripts
