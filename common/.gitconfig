@@ -33,3 +33,8 @@
 # See install.sh.
 [include]
     path = ~/.gitconfig-identity
+
+# dotfiles itself is a personal repo - always personal identity, regardless of
+# machine default (overrides the include above since it's evaluated after it).
+[includeIf "gitdir:**/dotfiles/"]
+    path = ~/dotfiles/common/.gitconfig-personal
