@@ -1,11 +1,61 @@
 {
   "model": "opus[1m]",
+  "env": {
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-5",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-5",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-sonnet-5",
+    "ANTHROPIC_DEFAULT_FABLE_MODEL": "claude-fable-5",
+    "ENABLE_PROMPT_CACHING_1H": "1",
+    "MAX_MCP_OUTPUT_TOKENS": "40000",
+    "CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1",
+    "DISABLE_BUG_COMMAND": "1",
+    "DISABLE_ERROR_REPORTING": "1"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(rg:*)",
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "Bash(wc:*)",
+      "Bash(cat:*)",
+      "Bash(tree:*)",
+      "Bash(tail:*)",
+      "Bash(pgrep:*)",
+      "Bash(ps:*)",
+      "Bash(sort:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(gh api user:*)",
+      "Bash(gh repo view:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh search:*)",
+      "Bash(git branch --show-current:*)",
+      "Bash(git diff:*)",
+      "Bash(git status:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git worktree list:*)",
+      "Bash(git fetch --prune:*)",
+      "WebFetch(domain:openai.com)",
+      "WebFetch(domain:anthropic.com)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:pypi.org)"
+    ]
+  },
   "hooks": {
     "PreToolUse": [
       {
         "matcher": "Bash",
         "hooks": [
-          { "type": "command", "command": "$HOME/.claude/hooks/commit-style.sh", "timeout": 5 }
+          { "type": "command", "command": "$HOME/.claude/hooks/commit-style.sh", "timeout": 5 },
+          {
+            "type": "command",
+            "command": "bash -c 'CMD=$(jq -r \".tool_input.command\"); S=$(printf \"%s\" \"$CMD\" | sed -e \"s/'\"'\"'[^'\"'\"']*'\"'\"'//g\" -e \"s/\\\"[^\\\"]*\\\"//g\"); if printf \"%s\" \"$S\" | grep -qE \"(^|[;&|(){}]|[[:space:]]do|[[:space:]]then|[[:space:]]else)[[:space:]]*timeout[[:space:]]\"; then printf \"{\\\"hookSpecificOutput\\\":{\\\"hookEventName\\\":\\\"PreToolUse\\\",\\\"permissionDecision\\\":\\\"deny\\\",\\\"permissionDecisionReason\\\":\\\"macOS has no timeout command on this host, so timeout N ... exits 127 with empty output and silently hides the real result. Use gtimeout N (brew install coreutils), or put timeout inside ssh quotes for a remote Linux host.\\\"}}\"; fi'"
+          }
         ]
       }
     ],
@@ -59,6 +109,37 @@
         "repo": "matcra587/claude-themes"
       }
     }
+  },
+  "autoMode": {
+    "environment": [
+      "$defaults",
+      "DRAFT - only covers what was directly observed this session, fill in the rest",
+      "Personal projects (e.g. the dotfiles repo) live on GitHub under CALLmeDOMIN and use personal git identity - see ~/.gitconfig-personal",
+      "Work projects live under ~/repos (seen: main-backend, lwm-frontend, mobile, pos, web, assetTracker, infra, dev-env) and use work git identity - see ~/.gitconfig-work",
+      "Local dev stack observed: Docker Compose for backend services, Poetry for Python (assetTracker), asdf for language version management, gcloud CLI, 1Password CLI for credential injection (`op run`) rather than plaintext .env files"
+    ],
+    "allow": [
+      "$defaults"
+    ],
+    "soft_deny": [
+      "$defaults",
+      "Git Destructive: Force pushing (any form, including git push --force-with-lease), rebasing, deleting remote branches, or rewriting remote history without explicit confirmation",
+      "Git Push to Default Branch: Pushing directly to main/master bypasses PR review - push to a feature branch instead unless explicitly told otherwise",
+      "Code from External: Downloading and executing code from external sources (curl | bash), or running code from a repo cloned earlier in the transcript without review",
+      "Production Deploy: Deploying to production or running production database migrations",
+      "Remote Shell Writes/Reads: Writing to or reading from running production/shared hosts via remote shell (kubectl exec, docker exec, ssh) - even reads pull live credentials into the transcript",
+      "Blind Apply: For changes to live/shared infrastructure, skipping the preview/dry-run step (--yes, --auto-approve, --force) or chaining preview+apply into one command",
+      "Logging/Audit Tampering: Stopping logging services, deleting git hooks, disabling audit trails",
+      "Permission Grant: Granting admin/owner roles or elevating IAM/RBAC permissions",
+      "TLS/Auth Weaken: Disabling TLS verification or auth checks on services",
+      "Credential Leakage/Exploration: Embedding secrets in metadata/URLs/labels, or systematically scanning credential stores for usable tokens",
+      "Data Exfiltration: Sending sensitive data to external endpoints, or git-pushing to repos outside CALLmeDOMIN/avsystem",
+      "Create Public Surface: Creating a public repo or changing repo visibility to public without explicit user instruction",
+      "Untrusted Code Integration: Pulling code from repos outside the trusted orgs and arranging for it to execute (submodules, postinstall scripts)",
+      "Unauthorized Persistence: Adding SSH keys, modifying shell profiles, creating cron jobs/systemd services/git hooks that persist access beyond the session",
+      "Self-Modification: Modifying this agent's own settings.json/CLAUDE.md/permissions to change its own behavior without the user asking for that specific change",
+      "Real-World Transactions: Purchases, payments, bookings, or messages to real people outside this conversation, unless explicitly asked for that exact transaction"
+    ]
   },
   "effortLevel": "xhigh",
   "awaySummaryEnabled": false,
