@@ -2,9 +2,18 @@
 
 Context: `main` used to be branch-per-OS (`macos`, `arch`, `windows`), each with
 independent, diverged history. It's now a single branch with `common/` +
-`macos/`/`linux/`/`windows/` stow packages. The `macos` machine has already
-been cut over (see git log on `main`). This doc is the runbook for cutting
-over any other machine (Linux first; Windows has no bash/stow, see bottom).
+`macos/`/`linux/`/`windows/` stow packages. Both macs are cut over now - the
+work laptop first, then the personal one (see git log on `main`). This doc is
+the runbook for cutting over any remaining machine (Linux; Windows has no
+bash/stow, see bottom).
+
+**Lesson from the second mac**: `main` was built from the *first* machine's
+state, so parts of the `macos/` package were silently machine-specific -
+display regexes in `.aerospace.toml` that matched nothing on the second mac,
+a `JAVA_HOME` pointing at a toolchain that wasn't installed, and a node setup
+(asdf) that the other machine didn't use (fnm). None of it fails loudly. Diff
+the package against the live machine file by file before cutting over, not
+just the obvious files.
 
 **Do this on a branch, not directly on `main`.** Push it, open a PR (or hand
 it back for review) - don't merge to `main` unsolicited.

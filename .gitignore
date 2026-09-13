@@ -11,3 +11,8 @@ raycast-x/
 # herdr: only track the config, not logs/session state/sockets
 macos/.config/herdr/*
 !macos/.config/herdr/config.toml
+
+# Vibe Island auto-generates a proprietary opencode plugin into the stowed
+# plugins dir. Machine-local, and must not end up in a public repo.
+macos/.config/opencode/plugins/vibe-island.js
+macos/.config/opencode/plugins/package.json
