@@ -96,4 +96,8 @@ export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
 
 fastfetch
 fortune
+
 update_dir_cache
+
+# Added by Antigravity
+export PATH="/Users/cmdmac/.antigravity/antigravity/bin:$PATH"
