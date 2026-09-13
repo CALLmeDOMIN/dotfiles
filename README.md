@@ -3,7 +3,7 @@
 Single-branch layout, stowed with GNU stow:
 
 - `common/` - stowed on every machine (shell, git, nvim, fastfetch)
-- `macos/` - stowed only on macOS (aerospace, sketchybar, karabiner, etc.)
+- `macos/` - stowed only on macOS (aerospace, karabiner, ghostty, etc.)
 - `linux/` - stowed only on Linux (hyprland, waybar, rofi, etc.)
 - `windows/` - reference config for native Windows tools (glazewm, zebar); not installed by `install.sh`
 
