@@ -168,11 +168,16 @@ focus-follows-mouse.enabled = true
     3 = '^built-in retina display$'
     4 = '^built-in retina display$'
     5 = '^built-in retina display$'
-    6 = ['^(d|D)(ell|ELL).*1.$', 1]
-    7 = ['^(d|D)(ell|ELL).*1.$', 1]
-    8 = ['^(d|D)(ell|ELL).*2.$', 3]
-    9 = ['^(d|D)(ell|ELL).*2.$', 3]
-    10 = ['^(d|D)(ell|ELL).*2.$', 3]
+    # 'secondary' rather than per-machine display regexes: this file is shared
+    # by both macs, and naming the work laptop's Dells here left the personal
+    # mac's externals unassigned. AeroSpace has no 'tertiary', so the work
+    # laptop's two externals collapse onto one monitor - acceptable trade for a
+    # single config.
+    6 = 'secondary'
+    7 = 'secondary'
+    8 = 'secondary'
+    9 = 'secondary'
+    10 = 'secondary'
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -189,3 +194,7 @@ focus-follows-mouse.enabled = true
     alt-shift-j = ['join-with down', 'mode main']
     alt-shift-k = ['join-with up', 'mode main']
     alt-shift-l = ['join-with right', 'mode main']
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.finder'
+    run = 'layout floating'

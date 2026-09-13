@@ -1,3 +1,7 @@
+# java (asdf-managed). Work-only: the personal mac has no java toolchain, and
+# IntelliJ doesn't need JAVA_HOME anyway (bundled JBR + per-project SDK).
+export JAVA_HOME="${ASDF_DATA_DIR:-$HOME/.asdf}/installs/java/corretto-21.0.8.9.1"
+
 alias withawsenv="op run --no-masking --env-file ~/repos/dev-env/aws.1password --"
 
 alias run_backend="withawsenv docker compose -f docker-compose-dev.yml --profile main-backend up --build -d"

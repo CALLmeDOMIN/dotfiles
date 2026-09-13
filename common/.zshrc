@@ -33,11 +33,11 @@ update_dir_cache() {
 
 alias f='cd "$HOME/$(cat "$FZF_DIR_CACHE" | fzf)"'
 
-# go (portable: works regardless of how go was installed)
-export PATH="$PATH:$(go env GOBIN 2>/dev/null):$(go env GOPATH 2>/dev/null)/bin"
-
-# java (asdf-managed)
-export JAVA_HOME="${ASDF_DATA_DIR:-$HOME/.asdf}/installs/java/corretto-21.0.8.9.1"
+# go (portable: works regardless of how go was installed). Guarded so machines
+# without go don't get empty path segments spliced into PATH.
+if command -v go >/dev/null 2>&1; then
+  export PATH="$PATH:$(go env GOBIN 2>/dev/null):$(go env GOPATH 2>/dev/null)/bin"
+fi
 
 # ASDF (portable shims/completions; the asdf.sh sourcing itself is OS-specific -
 # see macos/.zshrc-os / linux/.zshrc-os, since install method differs per OS)
