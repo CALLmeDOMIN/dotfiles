@@ -1,28 +1,80 @@
 return {
     { -- Highlight, edit, and navigate code
-        'nvim-treesitter/nvim-treesitter',
-        branch = 'master', -- <--- ADD THIS LINE
-        build = ':TSUpdate',
-        main = 'nvim-treesitter.config', -- Sets main module to use for opts
-        -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+        "nvim-treesitter/nvim-treesitter",
+        branch = "master",
+        build = ":TSUpdate",
         opts = {
-            ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
-            -- Autoinstall languages that are not installed
+            -- Union of what the macOS and arch configs each installed, so
+            -- neither machine loses parsers it was relying on.
+            ensure_installed = {
+                "bash", "c", "diff", "go", "html", "javascript", "jsdoc",
+                "lua", "luadoc", "markdown", "markdown_inline", "query",
+                "rust", "typescript", "vim", "vimdoc",
+            },
+
+            sync_install = false,
             auto_install = true,
+
             highlight = {
                 enable = true,
-                -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-                --  If you are experiencing weird indenting issues, add the language to
-                --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-                additional_vim_regex_highlighting = { 'ruby' },
+
+                -- Bail out on very large files - treesitter highlighting is the
+                -- main cost when opening generated/minified sources.
+                disable = function(_, buf)
+                    local max_filesize = 100 * 1024 -- 100 KB
+                    local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+                    if ok and stats and stats.size > max_filesize then
+                        vim.notify(
+                            "File larger than 100KB, treesitter disabled for performance",
+                            vim.log.levels.WARN,
+                            { title = "Treesitter" }
+                        )
+                        return true
+                    end
+                end,
+
+                -- Languages whose indent rules still need vim's regex engine.
+                additional_vim_regex_highlighting = { "ruby", "markdown" },
             },
-            indent = { enable = true, disable = { 'ruby' } },
+
+            indent = { enable = true, disable = { "ruby" } },
         },
-        -- There are additional nvim-treesitter modules that you can use to interact
-        -- with nvim-treesitter. You should go explore a few and see what interests you:
-        --
-        --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-        --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-        --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-    }
+
+        config = function(_, opts)
+            require("nvim-treesitter.configs").setup(opts)
+
+            -- templ (Go templating) has no parser upstream - register it by hand.
+            local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+            parser_config.templ = {
+                install_info = {
+                    url = "https://github.com/vrischmann/tree-sitter-templ.git",
+                    files = { "src/parser.c", "src/scanner.c" },
+                    branch = "master",
+                },
+            }
+            vim.treesitter.language.register("templ", "templ")
+        end,
+    },
+
+    {
+        "nvim-treesitter/nvim-treesitter-context",
+        after = "nvim-treesitter",
+        config = function()
+            require("treesitter-context").setup({
+                enable = true,
+                multiwindow = false,
+                max_lines = 0,
+                min_window_height = 0,
+                line_numbers = true,
+                multiline_threshold = 20,
+                trim_scope = "outer",
+                mode = "cursor",
+                separator = nil,
+                zindex = 20,
+                on_attach = nil,
+            })
+        end,
+    },
+
+    { "nvim-treesitter/playground" },
 }

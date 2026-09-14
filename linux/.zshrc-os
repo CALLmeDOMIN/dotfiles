@@ -37,7 +37,5 @@ alias reboot="hyprshutdown -t 'Restarting...' --post-cmd 'reboot'"
 bindkey "^R" history-incremental-search-backward
 set +H   # no history expansion; '!' stays literal
 
-# Keybinding mode conflict, left UNRESOLVED on purpose: arch's old .zshrc used
-# vi mode, but common/.zshrc (reconciled on macOS) sets emacs mode, which now
-# wins here. Uncomment to restore arch's previous behaviour.
-# bindkey -v
+# Note: arch's old .zshrc used vi mode (bindkey -v). Deliberately NOT carried
+# over - emacs mode from common/.zshrc is the wanted behaviour on all machines.
