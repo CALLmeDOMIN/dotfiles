@@ -43,3 +43,19 @@ sudo pacman -S --noconfirm --needed jq
 
 # scans installed packages against known CVEs
 sudo pacman -S --noconfirm --needed arch-audit
+
+# file manager (nemo) + plugins. gvfs is NOT optional: without it nemo has no
+# trash, no network shares and no phone/camera mounting. Dolphin never needed
+# it because KIO covers that itself, so it won't already be installed.
+sudo pacman -S --noconfirm --needed nemo nemo-fileroller nemo-terminal nemo-audio-tab \
+  nemo-media-columns nemo-emblems nemo-image-converter nemo-compare nemo-pastebin
+sudo pacman -S --noconfirm --needed gvfs gvfs-mtp gvfs-afc gvfs-gphoto2 gvfs-smb
+
+# Open folders in nemo. Worth setting explicitly - with nothing registered,
+# inode/directory falls to whichever .desktop claims it first (it was
+# kitty-open.desktop here, so folders opened in a terminal).
+xdg-mime default nemo.desktop inode/directory
+
+# nemo's "Open in Terminal" hardcodes gnome-terminal otherwise
+gsettings set org.cinnamon.desktop.default-applications.terminal exec ghostty
+gsettings set org.cinnamon.desktop.default-applications.terminal exec-arg -e
