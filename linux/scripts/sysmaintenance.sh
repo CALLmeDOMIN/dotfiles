@@ -7,6 +7,29 @@ yay -Syu
 
 echo ""
 echo "----------------------------------------------------"
+echo "REBUILDING AUR PACKAGES FLAGGED BY PACMAN HOOKS"
+echo "----------------------------------------------------"
+
+# Pacman hooks can't rebuild AUR packages inline (they run while pacman holds
+# db.lck, so a nested yay deadlocks). Instead they drop a flag file here and we
+# do the rebuild now, outside any transaction.
+rebuild_dir=/var/lib/aur-rebuild
+found=0
+for stamp in "$rebuild_dir"/*; do
+    [ -e "$stamp" ] || continue
+    found=1
+    pkg=$(basename "$stamp")
+    echo "Rebuilding $pkg..."
+    if yay -S --rebuild --noconfirm "$pkg"; then
+        rm -f "$stamp"
+    else
+        echo "WARNING: $pkg failed to rebuild; keeping its flag for next run."
+    fi
+done
+[ "$found" -eq 0 ] && echo "No AUR packages flagged for rebuild."
+
+echo ""
+echo "----------------------------------------------------"
 echo "CLEARING PACMAN CACHE"
 echo "----------------------------------------------------"
 

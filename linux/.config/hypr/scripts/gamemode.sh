@@ -1,14 +1,15 @@
-#!/usr/bin/env sh
-HYPRGAMEMODE=$(hyprctl getoption animations:enabled | awk 'NR==1{print $2}')
-if [ "$HYPRGAMEMODE" = 1 ] ; then
+#!/usr/bin/env bash
+STATE=/tmp/hypr-gamemode
+NOTIF_ID=9999
+
+if [[ -f $STATE ]]; then
+    hyprctl reload
+    rm "$STATE"
+    dunstify -a gamemode -r $NOTIF_ID -t 2000 "Gamemode OFF"
+else
     hyprctl --batch "\
-        keyword animations:enabled 0;\
-        keyword decoration:shadow:enabled 0;\
-        keyword decoration:blur:enabled 0;\
-        keyword general:gaps_in 0;\
-        keyword general:gaps_out 0;\
-        keyword general:border_size 1;\
-        keyword decoration:rounding 0"
-    exit
+        keyword unbind ALT, mouse:272;\
+        keyword unbind ALT, mouse:273"
+    touch "$STATE"
+    dunstify -a gamemode -r $NOTIF_ID -t 2000 "🎮 Gamemode ON"
 fi
-hyprctl reload
