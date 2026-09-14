@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Waybar custom/gpu module. NVIDIA usage% + VRAM via nvidia-smi.
+
+if ! stats=$(nvidia-smi --query-gpu=utilization.gpu,memory.used,memory.total,temperature.gpu \
+    --format=csv,noheader,nounits 2>&1); then
+    jq -nc '{text: "gpu ?", tooltip: "nvidia-smi unavailable"}'
+    exit 0
+fi
+
+util=$(cut -d',' -f1 <<<"$stats" | tr -d ' ')
+mem_used=$(cut -d',' -f2 <<<"$stats" | tr -d ' ')
+mem_total=$(cut -d',' -f3 <<<"$stats" | tr -d ' ')
+temp=$(cut -d',' -f4 <<<"$stats" | tr -d ' ')
+
+tooltip=$(printf 'VRAM: %s / %s MiB\nTemp: %s°C' "$mem_used" "$mem_total" "$temp")
+util_padded=$(printf '%3d' "$util")
+
+jq -nc --arg text "󰢮 ${util_padded}%" --arg tooltip "$tooltip" '{text: $text, tooltip: $tooltip}'

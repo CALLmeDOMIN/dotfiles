@@ -5,17 +5,17 @@
 }
 {
     "label" : "reboot",
-    "action" : "systemctl reboot || loginctl reboot",
+    "action" : "hyprshutdown -t \"Restarting...\" --vt 1 --post-cmd \"reboot\"",
     "keybind" : "r"
 }
 
 {
     "label" : "logout",
-    "action" : "pkill Hyprland || pkill sway || pkill niri || loginctl terminate-user $USER",
+    "action" : "hyprshutdown -t \"Logging out...\"",
     "keybind" : "e"
 }
 {
     "label" : "shutdown",
-    "action" : "systemctl poweroff || loginctl poweroff",
+    "action" : "hyprshutdown -t \"Shutting down...\" --vt 1 --post-cmd \"shutdown -P 0\"",
     "keybind" : "s"
 }

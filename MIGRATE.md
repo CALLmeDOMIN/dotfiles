@@ -29,6 +29,17 @@ regression if you blindly switch over.
 looks stale compared to what's actually running here, that migration
 happened locally and was never pushed - don't discard it.
 
+*Outcome on arch (see branch `migrate-arch`)*: confirmed, and worse than
+expected. The Lua migration **was** committed and pushed to `origin/arch` -
+the gap was on main's side. `main`'s `linux/` package had been built from an
+arch snapshot predating it, so it was missing five commits' worth of work,
+still carried configs deleted on arch, and its `waybar/config.jsonc` exec'd
+stats scripts that existed nowhere in `main`. Also worth knowing: `common/`
+took the **macOS** branch's files verbatim, so for anything both machines
+had their own version of, "main" means "macOS's copy", not "the newer one" -
+diff before trusting it. arch's treesitter config lost five parsers and two
+whole plugins that way before it was caught.
+
 If you find real local drift: commit it to `arch` first (safety net, doesn't
 touch anything live), then build a small worktree off `main` and port the
 relevant files into `linux/` the same way the macos cutover reconciled its
@@ -64,13 +75,54 @@ symlinks, move it back into the fresh `~/.config` after `install.sh` runs.
 
 ## Step 4: cut over
 
+**Do not `rm ~/.config`.** That instruction was written from the macOS
+machine, where `~/.config` happened to be a single symlink into the old
+checkout. That is not guaranteed - stow folds a directory into one symlink
+only while every entry in it belongs to the package. The moment any other
+application writes into `~/.config`, stow unfolds it into a real directory
+holding a mix of its own symlinks and unrelated app state. On the arch
+machine it was a real directory with 55 subdirectories (`chromium`,
+`BraveSoftware`, `vivaldi`, `Code - OSS`, `gh`, `systemd`, ...) and only 7
+stow symlinks among them; `rm -rf` would have taken all of it.
+
+`stow -D` does **not** work here either, which is worth knowing before you
+reach for it. The old layout has the repo itself as the package (stow dir
+`~`, package `dotfiles`, target `~`), so stow dir and target are the same
+directory and stow bails out with:
+
+```
+WARNING: skipping target which was current stow directory .
+```
+
+It plans nothing and removes nothing - verified on arch, where it was a
+silent no-op against all 20 live symlinks.
+
+So unstow by hand. List exactly what points into the checkout, eyeball it,
+then remove that list and nothing else. Removing a symlink never touches
+what it points at, so the repo is never at risk:
+
 ```sh
-rm ~/.config ~/.zshrc ~/.gitconfig   # only the symlinks - real files stay in the repo
+find ~ -xdev -type l | while read -r l; do
+  case "$(readlink -f "$l" 2>/dev/null)" in "$HOME"/dotfiles/*) echo "$l";; esac
+done | sort | tee /tmp/dotfiles-links.txt
+
+# review that file, then:
+xargs -a /tmp/dotfiles-links.txt rm
+
+# stow unfolds a directory as soon as anything else writes into it, so some
+# dirs are left behind empty - drop only the empty ones, deepest first:
+find ~/.config -depth -type d -empty -delete
+```
+
+Check with `ls -ld ~/.config` before any of this: a real directory means
+unstow by hand, never `rm -rf`. Then:
+
+```sh
 git checkout migrate-arch
 ./install.sh --identity <work|personal>   # pick whichever this machine actually is
 ```
 
-Then move the rescued app state back into `~/.config`.
+Then move any rescued app state back into `~/.config`.
 
 ## Step 5: verify
 
