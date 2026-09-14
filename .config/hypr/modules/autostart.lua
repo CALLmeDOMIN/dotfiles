@@ -14,10 +14,14 @@ hl.on("hyprland.start", function()
     -- dark mode / GTK theming
     hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
     hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+
+    -- nwg-look applies its OWN saved gsettings snapshot, which silently
+    -- resets cursor-theme (and possibly others) to stale values - it must
+    -- run BEFORE our explicit overrides below, not after, or it wins.
+    hl.exec_cmd("nwg-look -a")
     hl.exec_cmd("gsettings set org.gnome.desktop.interface cursor-theme 'Bibata-Modern-Classic'")
     hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
     hl.exec_cmd("gsettings set org.gnome.desktop.interface gtk-theme 'Catppuccin-Mocha-Standard-Mauve-Dark'")
-    hl.exec_cmd("nwg-look -a")
 
     hl.exec_cmd("discord")
     hl.exec_cmd("zen-browser")

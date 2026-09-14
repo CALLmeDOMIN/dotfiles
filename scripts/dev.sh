@@ -40,3 +40,6 @@ sudo pacman -S --noconfirm --needed pacman-contrib reflector
 
 # used by waybar's weather/docker/gpu custom modules
 sudo pacman -S --noconfirm --needed jq
+
+# scans installed packages against known CVEs
+sudo pacman -S --noconfirm --needed arch-audit
