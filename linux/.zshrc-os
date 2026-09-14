@@ -1,9 +1,43 @@
-# Linux-specific zsh additions go here (counterpart to macos/.zshrc-os).
-# Nothing arch's original .zshrc had turned out to be genuinely Linux-only
-# after reconciliation into common/.zshrc - this file is an intentional
-# empty extension point, not an oversight.
+# Linux-specific zsh additions (counterpart to macos/.zshrc-os), sourced from
+# common/.zshrc. Populated during the arch migration with the bits of arch's
+# old standalone .zshrc that didn't survive reconciliation into common/.
 
-# TODO when migrating the arch machine: it hasn't adopted asdf yet (still on
-# fnm, if anything). macOS sources asdf.sh from its Homebrew path; find the
-# equivalent path for however asdf gets installed on arch (pacman/AUR vs the
-# official git-clone installer use different locations) and add it here.
+# asdf: resolved. This machine has no asdf (no ~/.asdf, nothing on PATH) - it
+# uses fnm for node and pacman for everything else. common/.zshrc's asdf
+# shims/completions lines are harmless no-ops here, so there is nothing to
+# source. If asdf is ever adopted on arch, add its init below.
+
+# fnm (node version manager; pacman-installed binary, shells live under
+# $XDG_DATA_HOME). Was hardcoded to /home/cmdarch in arch's old .zshrc.
+FNM_PATH="$HOME/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "$(fnm env)"
+fi
+
+# pnpm (same - was hardcoded to /home/cmdarch)
+export PNPM_HOME="$HOME/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
+# Provisioning scripts. scripts/ is stow-ignored, so these run out of the repo
+# rather than $HOME, and they moved down into linux/ with the restructure.
+alias dev="$HOME/dotfiles/linux/scripts/dev.sh"
+alias devyay="$HOME/dotfiles/linux/scripts/dev-yay.sh"
+
+# Graceful uwsm-aware power actions (hyprshutdown is AUR, Hyprland-only).
+# Note: 'reboot' deliberately shadows /usr/bin/reboot, as it did on arch.
+alias bye="hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown -P 0'"
+alias reboot="hyprshutdown -t 'Restarting...' --post-cmd 'reboot'"
+
+# Carried over from arch's .zshrc. Not actually Linux-only - promote to
+# common/.zshrc if the other machines want them too.
+bindkey "^R" history-incremental-search-backward
+set +H   # no history expansion; '!' stays literal
+
+# Keybinding mode conflict, left UNRESOLVED on purpose: arch's old .zshrc used
+# vi mode, but common/.zshrc (reconciled on macOS) sets emacs mode, which now
+# wins here. Uncomment to restore arch's previous behaviour.
+# bindkey -v
