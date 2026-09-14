@@ -2,7 +2,7 @@
 -- require("modules.programs") from any module that needs these.
 return {
     terminal    = "ghostty",
-    fileManager = "dolphin",
+    fileManager = "nemo",
     menu        = "vicinae toggle",
     mainMod     = "ALT",
 }
