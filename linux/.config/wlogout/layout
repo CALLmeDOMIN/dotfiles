@@ -5,17 +5,17 @@
 }
 {
     "label" : "reboot",
-    "action" : "systemd-run --user --slice=background.slice --quiet --collect hyprshutdown --no-fork -t \"Restarting...\" --vt 1 --post-cmd \"reboot\"",
+    "action" : "systemd-run --user --slice=background.slice --quiet --collect hyprshutdown --no-fork -t 'Restarting...' --vt 1 --post-cmd 'reboot'",
     "keybind" : "r"
 }
 
 {
     "label" : "logout",
-    "action" : "hyprshutdown -t \"Logging out...\"",
+    "action" : "hyprshutdown -t 'Logging out...'",
     "keybind" : "e"
 }
 {
     "label" : "shutdown",
-    "action" : "systemd-run --user --slice=background.slice --quiet --collect hyprshutdown --no-fork -t \"Shutting down...\" --vt 1 --post-cmd \"shutdown -P 0\"",
+    "action" : "systemd-run --user --slice=background.slice --quiet --collect hyprshutdown --no-fork -t 'Shutting down...' --vt 1 --post-cmd 'shutdown -P 0'",
     "keybind" : "s"
 }
