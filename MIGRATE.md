@@ -85,17 +85,44 @@ machine it was a real directory with 55 subdirectories (`chromium`,
 `BraveSoftware`, `vivaldi`, `Code - OSS`, `gh`, `systemd`, ...) and only 7
 stow symlinks among them; `rm -rf` would have taken all of it.
 
-Let stow undo exactly what stow created:
+`stow -D` does **not** work here either, which is worth knowing before you
+reach for it. The old layout has the repo itself as the package (stow dir
+`~`, package `dotfiles`, target `~`), so stow dir and target are the same
+directory and stow bails out with:
+
+```
+WARNING: skipping target which was current stow directory .
+```
+
+It plans nothing and removes nothing - verified on arch, where it was a
+silent no-op against all 20 live symlinks.
+
+So unstow by hand. List exactly what points into the checkout, eyeball it,
+then remove that list and nothing else. Removing a symlink never touches
+what it points at, so the repo is never at risk:
 
 ```sh
-stow -d ~ -t ~ -D dotfiles   # removes only symlinks pointing into the package
-rm ~/.zshrc ~/.gitconfig     # these two are $HOME-level symlinks; verify with `ls -l` first
+find ~ -xdev -type l | while read -r l; do
+  case "$(readlink -f "$l" 2>/dev/null)" in "$HOME"/dotfiles/*) echo "$l";; esac
+done | sort | tee /tmp/dotfiles-links.txt
+
+# review that file, then:
+xargs -a /tmp/dotfiles-links.txt rm
+
+# stow unfolds a directory as soon as anything else writes into it, so some
+# dirs are left behind empty - drop only the empty ones, deepest first:
+find ~/.config -depth -type d -empty -delete
+```
+
+Check with `ls -ld ~/.config` before any of this: a real directory means
+unstow by hand, never `rm -rf`. Then:
+
+```sh
 git checkout migrate-arch
 ./install.sh --identity <work|personal>   # pick whichever this machine actually is
 ```
 
-Check with `ls -ld ~/.config` before doing anything: a real directory means
-unstow, never remove. Then move any rescued app state back into `~/.config`.
+Then move any rescued app state back into `~/.config`.
 
 ## Step 5: verify
 
