@@ -27,6 +27,12 @@ esac
 alias dev="$HOME/dotfiles/linux/scripts/dev.sh"
 alias devyay="$HOME/dotfiles/linux/scripts/dev-yay.sh"
 
+# Arch ships Zed's binary as `zeditor` - plain `zed` belongs to the ZFS Event
+# Daemon (zfs-utils). Homebrew installs it as `zed` on macOS, so this rename
+# has to live here rather than in common/.zshrc, which calls `zed .` from the
+# wt() and wts() worktree helpers.
+alias zed=zeditor
+
 # Graceful uwsm-aware power actions (hyprshutdown is AUR, Hyprland-only).
 # Note: 'reboot' deliberately shadows /usr/bin/reboot, as it did on arch.
 alias bye="hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown -P 0'"
